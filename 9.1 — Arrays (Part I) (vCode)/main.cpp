@@ -85,7 +85,79 @@ int main()
     and then use the member selection operator to select the struct member you want:
     */
 
-    rects[0].length = 24
+    rects[0].length = 24;
 
+    /*----------------------------------
+                Array subscripts
+    -----------------------------------*/
+    int array[5]{};// declare an array of length 5
+
+    //You can using a literal (constant) index:
+    array[1] = 7;// ok
+
+    //You can using an enum (constant) index
+    enum Animals
+    {
+        animal_cat = 2
+    };
+    array[animal_cat] = 4;// ok
+
+    // You can using a variable (non-constant) index:
+    short index{ 3 };
+    array[index] =  7;// ok
+
+    // You can using an expression that evaluates to an integer index:
+    array[1+2] = 7; // ok
+
+    /*----------------------------------
+            Fixed array declarations
+    -----------------------------------*/
+    /*
+    When declaring a fixed array, the length of the array (between the square brackets) 
+    must be a compile-time constant.
+    */
+
+    //We can using a literal constant
+    int numberOfLessonPerDay1[7]{}; // ok
+
+    //We can using a constexpr symbolic constant
+    constexpr int daysPerWeek1{ 7 };
+    int numberOfLessonPerDay2[daysPerWeek1]{}; // ok
+
+    //We can using an enumerator
+    enum Weekend
+    {
+        monday,
+        tuesday,
+        wednesday,
+        thursday,
+        friday,
+        saturday,
+        sunday,
+
+        maxWeekDay
+    };
+    int numberOfLessonPerDay3[maxWeekDay]{}; // ok
+
+    //Note that non-const variables or runtime constants cannot be used:
+    int daysPerWeek2{};
+    std::cin >> daysPerWeek2;
+    int numberOfLessonPerDay4[daysPerWeek2]{};// Not ok -- daysPerWeek is not a compile-time constant!
+
+    /*----------------------------------
+            A note on dynamic arrays
+    -----------------------------------*/
+    /*
+    Because fixed arrays have memory allocated at compile time, that introduces two limitations:
+
+    Fixed arrays cannot have a length based on either user input or some other value calculated at 
+    runtime.
+    Fixed arrays have a fixed length that can not be changed.
+
+    In many cases, these limitations are problematic. Fortunately, C++ supports a second kind 
+    of array known as a dynamic array. The length of a dynamic array can be set at runtime, 
+    and their length can be changed. However, dynamic arrays are a little more complicated to 
+    instantiate, so we’ll cover them later in the chapter.
+    */
     return 0;
 }
