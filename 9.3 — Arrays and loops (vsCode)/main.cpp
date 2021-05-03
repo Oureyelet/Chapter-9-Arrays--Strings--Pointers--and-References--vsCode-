@@ -25,12 +25,54 @@ int main()
 
     //then i try make equivalent with array :)
 
-    int numStudentA[]{34, 45, 34, 67, 77};
+    int scoresA[]{34, 45, 34, 67, 77};
+    const int numStudentsA{ sizeof(scoresA) / sizeof(scoresA[0]) };
 
-    int totalScoreA{ numStudentA[0] + numStudentA[1] + numStudentA[2] + numStudentA[3] + numStudentA[4] };
-    auto averageScoreA{ static_cast<double>(totalScoreA)/ 5 /*std::size(totalScoreA) (ONLY C++17) */ };
+    int totalScoreA{ scoresA[0] + scoresA[1] + scoresA[2] + scoresA[3] + scoresA[4] };
+    auto averageScoreA{ static_cast<double>(totalScoreA)/ numStudentsA };
 
     std::cout << averageScoreA << '\n';
+
+    /*-------------------------------------------
+                    Loops and arrays
+    --------------------------------------------*/
+    //Here’s our example above using a for loop:
+
+    int scoresB[]{34, 45, 34, 67, 77};
+
+    const int numStudentsB{ sizeof(scoresB) / sizeof(scoresB[0]) };
+
+    int totalScoreB{ 0 };
+
+    for(int count{ 0 }; count < numStudentsB; ++count)
+    {
+        totalScoreB += scoresB[count]; //same: totalScoreB = scoresB[count] + totalScoreB; 
+    }
+
+    auto averageScoreB{ static_cast<double>(totalScoreB) / numStudentsB };
+
+    std::cout << averageScoreB << '\n';
+
+    /*
+    Here’s an example of using a loop to search an array in order to determine 
+    the best score in the class:
+    */
+
+    constexpr int scoresC[]{34, 45, 34, 67, 77};
+    constexpr int numStudentsC{ sizeof(scoresC) / sizeof(scoresC[0]) };
+
+    int maxScore{ 0 }; // keep track of our largest score
+
+    for(int count{ 0 }; count < numStudentsC; ++count)
+    {
+        if(scoresC[count] > maxScore)
+        {
+            maxScore = scoresC[count];
+        }
+    }
+
+    std::cout << "The best score was: " << maxScore << '\n';
+
 
 
 
