@@ -171,7 +171,7 @@ int main()
                     int index{ 0 };
                     for(int count{ 0 }; count < numArray_Q1; ++count)
                     {
-                        if(array_Q1[count] = choice)
+                        if(array_Q1[count] == choice)
                         {
                             index = count;
                         }
@@ -194,7 +194,7 @@ int main()
             int index{ 0 };
             for(int count{ 0 }; count < numArray_Q1; ++count)
             {
-                if(array_Q1[count] = choice)
+                if(array_Q1[count] == choice)
                 {
                     index = count;
                 }
