@@ -1,5 +1,6 @@
 #include <iostream>
 #include <utility>
+#include <algorithm>
 
 int main()
 {
@@ -93,6 +94,70 @@ so we can actually stop 1 element before the end of the array.
     -------------------*/
     //Here’s how this algorithm is implemented in C++:
     //(go see Selection sort in C++.cpp )
+
+    /*-------
+    std::sort
+    -------*/
+    int array[]{ 30, 50, 20, 10, 40 };
+    int numArray{ sizeof(array) / sizeof(array[0]) };
+
+    std::sort(std::begin(array), std::end(array));
+
+    for(std::size_t count { 0 }; count < numArray ; ++count)
+    {
+        std::cout << array[count] << ' ';
+    }
+
+    std::cout << '\n';
+
+    /*
+    By default, std::sort sorts in ascending order using operator< to compare pairs 
+    of elements and swapping them if necessary (much like our selection sort example does above).
+    */
+
+    /*-------
+    Quiz time
+    -------*/
+    /*
+    Question #1
+
+    Manually show how selection sort works on the following array: { 30, 60, 20, 50, 40, 10 }. 
+    Show the array after each swap that takes place.
+    */
+    //anwser:
+    /*
+    { 30, 60, 20, 50, 40, 10 }
+    ---------------------------
+    { 10, 60, 20, 50, 40, 30 }
+    { 10, 20, 60, 50, 40, 30 }
+    { 10, 20, 30, 50, 40, 60 }
+    { 10, 20, 30, 40, 50, 60 }
+    { 10, 20, 30, 40, 50, 60 }
+    */
+
+    /*
+    Question #2
+
+    Rewrite the selection sort code above to sort in descending order 
+    (largest numbers first). Although this may seem complex, it is actually surprisingly simple.
+    */
+    //anwser:
+    int array1[]{ 30, 50, 20, 10, 40 };
+    int numArray1{ sizeof(array1) / sizeof(array1[0]) };
+
+    std::sort(std::begin(array1), std::end(array1));
+
+    for(std::size_t count { 0 }; count < numArray1 ; ++count)
+    {
+        std::swap(array1[0], array1[4]);
+        std::cout << array1[count] << ' ';
+        std::swap(array1[1], array1[3]);
+    }
+
+    std::cout << '\n';
+    
+
+
 
     
     return 0;
