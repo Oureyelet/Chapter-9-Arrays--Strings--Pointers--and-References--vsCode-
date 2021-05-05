@@ -205,5 +205,14 @@ int main()
 
     }// and try again
 
+    /*
+    Question #3
+
+    Modify the following program so that instead of having maxScore hold the largest 
+    score directly, a variable named maxIndex holds the index of the largest score.
+
+    (go see question 3.cpp)
+    */
+
     return 0;   
 }
