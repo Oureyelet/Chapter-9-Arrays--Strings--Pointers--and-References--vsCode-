@@ -1,7 +1,7 @@
 #include <iostream>
 #include <iterator>
 #include <limits> // for for std::numeric_limits
-#include <cstring> // for strcpy()
+#include <cstring> // for strcpy() and strlen()
 
 int main()
 {
@@ -17,13 +17,13 @@ int main()
     */
     char myString[]{ "chrystus" };
     /*
-    Although “string” only has 6 letters, C++ automatically adds a null terminator 
+    Although “chrystus” only has 8 letters, C++ automatically adds a null terminator 
     to the end of the string for us (we don’t need to include it ourselves). 
-    Consequently, myString is actually an array of length 7!
+    Consequently, myString is actually an array of length 9!
     */
-    constexpr int lenght{ (sizeof(myString) / sizeof(myString[0])) - 1 };
+    constexpr int lenght{ sizeof(myString) / sizeof(myString[0]) };//(8 letters + null terminator)
 
-    std::cout << myString << " has " << lenght << " characters.\n";
+    std::cout << myString << " has " << lenght << " characters.\n"; //(8 letters + null terminator)
 
     for(int count{ 0 }; count < lenght; ++count)
     {
@@ -48,7 +48,7 @@ int main()
 
     In this case, we can declare an array larger than we need:
     */
-    char name[500];// declare array large enough to hold 500 characters
+    char name[100];// declare array large enough to hold 500 characters
     std::cout << "Enter your name: ";
     std::cin >> name;
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -56,27 +56,56 @@ int main()
 
     //The recommended way of reading C-style strings using std::cin is as follows:
 
-    char surname[255];// declare array large enough to hold 255 characters
-    int lenghtSurname{ (sizeof(surname) / sizeof(surname[0])) - 1 };
+    char surname[55];// declare array large enough to hold 255 characters
     std::cout << "Enter your surname: ";
-    std::cin.getline(surname, lenghtSurname);
+    std::cin.getline(surname, 55, '\n');
     std::cout << "Your surname is: " << surname << '\n';
-    
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    std::cin.clear(); // put us back in 'normal' operation mode
+   
     /*
     This call to cin.getline() will read up to 254 characters into name 
     (leaving room for the null terminator!). Any excess characters will be discarded. 
     In this way, we guarantee that we will not overflow the array!
     */
 
-    /*--------------------------
-    Manipulating C-style strings
-    --------------------------*/
-    char day[]{ "Thursday" };
+    /*------------------
+    Copy C-style strings
+    ------------------*/
+    char day[]{ "Friday" };
     char tomorrow[50];
-    std::strcpy(day, tomorrow);
+    std::strcpy(tomorrow, day);
     std::cout << tomorrow << '\n';
+
+    /*------
+    strlen() 
+    ------*/
+
+    char myName[20]{ "Anna" };// only use 5 characters (4 letters + null terminator)
+    std::cout << "My name is: " << myName << '\n';
+    std::cout << myName << " has " << std::strlen(myName) << " letters.\n";
+    std::cout << myName << " has " << sizeof(myName) / sizeof(myName[0]) << " characters in the array.\n";
+
+    /*------------------------------------------------------------------
+    Here’s an example program using some of the concepts in this lesson:
+    ------------------------------------------------------------------*/
+    // Ask the user to enter a string
+    char buffer[255];
+    std::cout << "Enter a string: ";
+    std::cin.getline(buffer, sizeof(buffer)/sizeof(buffer[0]));
+
+    int spaceFound{ 0 };
+    int bufferLenght{ static_cast<int>(std::strlen(buffer)) };
+
+    // Loop through all of the characters the user entered
+    for(int count{ 0 }; count < bufferLenght; ++count)
+    {
+        // If the current character is a space, count it
+        if(buffer[count] == ' ')
+        {
+            ++spaceFound;
+        }
+    }
+
+    std::cout << "You typed " << spaceFound << " spaces!\n";
 
     
 
