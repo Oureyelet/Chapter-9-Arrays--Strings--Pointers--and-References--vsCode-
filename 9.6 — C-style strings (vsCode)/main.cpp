@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iterator>
-#include <limits> // for for std::numeric_limits
 #include <cstring> // for strcpy() and strlen()
 
 int main()
@@ -50,8 +49,7 @@ int main()
     */
     char name[100];// declare array large enough to hold 500 characters
     std::cout << "Enter your name: ";
-    std::cin >> name;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin.getline(name, 100, '\n'); 
     std::cout << "Your name " << " is " << name << '\n';
 
     //The recommended way of reading C-style strings using std::cin is as follows:
