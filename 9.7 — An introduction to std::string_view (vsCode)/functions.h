@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstring>
+#include <iterator>
+
 
 #ifndef FUNCTIONS_H
 #define FUNCTIONS_H
@@ -11,7 +14,8 @@ void message()
 char speak()
 {
     char word[]{ "Hello World Again :)" };
-    std::cout << word << " has " << sizeof(word) / sizeof(word[0]) << " characters array\n";
+    std::cout << word << " has " << std::size(word) << " characters array.\n";//(20 letters + null terminator)
+    std::cout << word << " has " << std::strlen(word) << " letters.\n";
 
     return 0;
 }
