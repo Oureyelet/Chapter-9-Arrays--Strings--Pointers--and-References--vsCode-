@@ -1,6 +1,6 @@
 #include <iostream>
 #include <iterator>
-#include <cstring> // for strcpy() and strlen()
+#include <cstring> // for strcpy() and strlen() and C-Style
 
 int main()
 {

@@ -1,8 +1,9 @@
 #include <iostream>
-#include "functions.h"
-#include <string>
-#include <string_view>
-#include <iterator>
+#include "functions.h" 
+#include <string> // for std::string
+#include <string_view> // for string_view
+#include <iterator> // for size
+#include <cstring> // For std::strlen and C-Style
 
 
 int main()
@@ -125,6 +126,66 @@ int main()
 
     print(static_cast<std::string>(vs)); //ok
 
+    /*-----------------------------------------------
+    Converting a std::string_view to a C-style string
+    -----------------------------------------------*/
+    std::string_view eloBelo{ "Plane" };
+
+    eloBelo.remove_suffix(3);
+
+    // Create a std::string from the std::string_view
+    std::string gitgit{ eloBelo };
+
+    // Get the null-terminated C-style string.
+    const char* szNullTerminated{ gitgit.c_str() };
+
+    // Pass the null-terminated string to the function that we want to use.
+    std::cout << gitgit << " has " << std::strlen(szNullTerminated) << " letter(s)\n";
+    /*
+    However, creating a std::string every time we want to pass a std::string_view as 
+    a C-style string is expensive, so this should be avoided if possible.
+    */
+
+    /*------------------------------------------------
+    Opening the window (kinda) via the data() function
+    ------------------------------------------------*/
+    std::string_view apple{ "Apple" };
+
+    std::cout << apple << '\n';
+
+    /*
+    We use std::strlen because it's simple, this could be any other function
+    that needs a null-terminated string.
+    It's okay to use data() because we haven't modified the view, and the
+    string is null-terminated.
+    */
+
+    std::cout << std::strlen(apple.data()) << '\n';
+
+    /*-----------------------
+    Incomplete implementation
+    -----------------------*/
+    std::string One_1{ "Hello" };
+    std::string_view Two_2{ "World" };
+
+    //Doesn't word
+    /*
+    std::cout << ( One_1 + Two_2 ) << '\n';
+    std::cout << ( Two_2 + One_1 ) << '\n';
+    */
+
+    /*
+    Potentially unsafe, or not what we want, because we're treating
+    the std::string_view as a C-style string.
+    */
+    std::cout << (One_1 + Two_2.data()) << '\n';
+    std::cout << (Two_2.data() + One_1 ) << '\n';
+
+    // Ok, but ugly and wasteful because we have to construct a new std::string.
+    std::cout << (One_1 + std::string{ Two_2 }) << '\n';
+    std::cout << (std::string{ Two_2 } + One_1) << '\n';
+    std::cout << (One_1 + static_cast<std::string>(Two_2)) << '\n';
+    std::cout << ( static_cast<std::string>(Two_2) + One_1) << '\n';
 
     return 0;
 }
