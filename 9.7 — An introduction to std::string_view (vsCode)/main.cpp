@@ -126,6 +126,8 @@ int main()
 
     print(static_cast<std::string>(vs)); //ok
 
+    print("This is string from function 'print'");
+
     /*-----------------------------------------------
     Converting a std::string_view to a C-style string
     -----------------------------------------------*/
