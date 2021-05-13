@@ -135,35 +135,58 @@ int main()
 
     What values does this program print? Assume a short is 2 bytes, and a 32-bit machine.
     */
+    std::cout << "//////////////" << '\n';
+    std::cout << "Question 1 !" << '\n';
+    std::cout << "//////////////" << '\n';
+
     short value_7{ 7 }; // &value = 0012FF60
     short otherValue{ 3 }; // &otherValue = 0012FF54
  
-    short* ptr_7{ &value_7 };
+    short* ptr_7{ &value_7 }; // 0012FF60
  
-    std::cout << &value_7 << '\n';
-    std::cout << value_7 << '\n';
-    std::cout << ptr_7 << '\n';
-    std::cout << *ptr_7 << '\n';
+    std::cout << &value_7 << '\n'; //print 0012FF60
+    std::cout << value_7 << '\n';//print 7
+    std::cout << ptr_7 << '\n';//print 0012FF60
+    std::cout << *ptr_7 << '\n';//print 7
     std::cout << '\n';
  
     *ptr_7 = 9;
+    //short* ptr_7{ 9 };
  
-    std::cout << &value_7 << '\n';
-    std::cout << value_7 << '\n';
-    std::cout << ptr_7 << '\n';
-    std::cout << *ptr_7  << '\n';
+    std::cout << &value_7 << '\n'; //print 0012FF60
+    std::cout << value_7 << '\n';//print 9 
+    std::cout << ptr_7 << '\n';//print 0012FF60
+    std::cout << *ptr_7  << '\n';//print 9
     std::cout << '\n';
  
     ptr_7 = &otherValue;
  
-    std::cout << &otherValue << '\n';
-    std::cout << otherValue << '\n';
-    std::cout << ptr_7 << '\n';
-    std::cout << *ptr_7 << '\n';
+    std::cout << &otherValue << '\n';//print 0012FF54
+    std::cout << otherValue << '\n';//print 3
+    std::cout << ptr_7 << '\n';//print 0012FF54
+    std::cout << *ptr_7 << '\n';//print 3
     std::cout << '\n';
  
     std::cout << sizeof(ptr_7) << '\n';
     std::cout << sizeof(*ptr_7) << '\n';
+
+    /*
+    Question #2
+
+    What’s wrong with this snippet of code?
+    */
+    std::cout << "//////////////" << '\n';
+    std::cout << "Question 2 !" << '\n';
+    std::cout << "//////////////" << '\n';
+
+    int value_12{ 45 };
+    int* ptr_23{ &value_12 }; // print xxxxFFFF000
+    *ptr_23 = 2; // assign address of value to ptr
+
+    //anwser is *ptr should be assing with value not with adress.
+    //or ptr = &value;
+
+
 
 
 
