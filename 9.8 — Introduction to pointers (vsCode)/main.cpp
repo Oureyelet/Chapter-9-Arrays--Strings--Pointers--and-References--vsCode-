@@ -81,13 +81,93 @@ int main()
     //////////////////////////////////////////////
     //          Indirection through pointers
     //////////////////////////////////////////////
+    int value{ 5 };
+    std::cout << &value << '\n';// prints address of value
+    std::cout << value << '\n';// prints contents of value
+
+    int *ptr_2{ &value };// ptr_2 points to value
+    std::cout << ptr_2 << '\n';// prints address held in ptr, which is &value
+    std::cout << *ptr_2 << '\n';// Indirection through ptr (get the value that ptr is pointing to)
+
+    //Once assigned, a pointer value can be reassigned to another value:
+    int value_1{ 3 };
+    int value_2{ 7 };
+
+    int *ptr_3{};
+
+    ptr_3 = &value_1; // ptr_3 points to value_1
+    std::cout << *ptr_3 << '\n';//print 3
+
+    ptr_3 = &value_2; // ptr_3 points to value_2
+    std::cout << *ptr_3 << '\n';//print 7
+
+    ////////////////////////////////////////////////////////
+    // A warning about indirection through invalid pointers
+    ////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////
+    //                  The size of pointers
+    ////////////////////////////////////////////////////////
+
+    ////////////////////////////////////////////////////////
+    //                  What good are pointers?
+    ////////////////////////////////////////////////////////
+    /*
+    1) Arrays are implemented using pointers. Pointers can be used to iterate through an array 
+    (as an alternative to array indices)
     
+    2) They are the only way you can dynamically allocate memory in C++. 
+    This is by far the most common use case for pointers.
+    
+    3) They can be used to pass a function as a parameter to another function.
+    
+    4) They can be used to achieve polymorphism when dealing with inheritance.
+    
+    5) They can be used to have one struct/class point at another struct/class, to form a chain. 
+    This is useful in some more advanced data structures, such as linked lists and trees.
+    */
+
+    ////////////////////////////////////////////////////////
+    //                  Quiz time
+    ////////////////////////////////////////////////////////
+    /*
+    Question #1
+
+    What values does this program print? Assume a short is 2 bytes, and a 32-bit machine.
+    */
+    short value_7{ 7 }; // &value = 0012FF60
+    short otherValue{ 3 }; // &otherValue = 0012FF54
+ 
+    short* ptr_7{ &value_7 };
+ 
+    std::cout << &value_7 << '\n';
+    std::cout << value_7 << '\n';
+    std::cout << ptr_7 << '\n';
+    std::cout << *ptr_7 << '\n';
+    std::cout << '\n';
+ 
+    *ptr_7 = 9;
+ 
+    std::cout << &value_7 << '\n';
+    std::cout << value_7 << '\n';
+    std::cout << ptr_7 << '\n';
+    std::cout << *ptr_7  << '\n';
+    std::cout << '\n';
+ 
+    ptr_7 = &otherValue;
+ 
+    std::cout << &otherValue << '\n';
+    std::cout << otherValue << '\n';
+    std::cout << ptr_7 << '\n';
+    std::cout << *ptr_7 << '\n';
+    std::cout << '\n';
+ 
+    std::cout << sizeof(ptr_7) << '\n';
+    std::cout << sizeof(*ptr_7) << '\n';
 
 
 
-
-
-
+    
 
 
 
