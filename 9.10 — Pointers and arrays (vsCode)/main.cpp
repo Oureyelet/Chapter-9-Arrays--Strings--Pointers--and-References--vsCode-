@@ -1,5 +1,9 @@
 #include <iostream>
 
+// function prototypes:
+void printSize(int*); 
+void changeArray(int*);
+
 int main()
 {
     //////////////
@@ -38,9 +42,54 @@ int main()
     ///////////////////////////////////////////////
     //Differences between pointers and fixed arrays
     ///////////////////////////////////////////////
+    /*
+    will print sizeof(int) * array length
+    and sizeof returns the number of bytes.
+    */
+    std::cout << sizeof(array) << '\n';
+
+
+    std::cout << sizeof(ptr2) << '\n';// will print the size of a pointer
+
+    ///////////////////////////////////////////////
+    //Revisiting passing fixed arrays to functions
+    ///////////////////////////////////////////////
+    /*
+    When passing an array as an argument to a function, a fixed array decays into a pointer, 
+    and the pointer is passed to the function:
+    */
+    int array2[]{ 1, 1, 2, 3, 5, 8, 13, 21 };
+    std::cout << sizeof(array2) << '\n';// will print sizeof(int) * array length
+
+    printSize(array2);// the array argument decays into a pointer here
+
+    //////////////////////////////
+    //An intro to pass by address
+    //////////////////////////////
+    int array3[]{ 1, 1, 2, 3, 5, 8, 13, 21 };
+    std::cout << "(array3) Element 0 has value: " << array3[0] << '\n';
+
+    changeArray(array3);
+
+
+    std::cout << "(array3) Element 0 has value: " << array3[0] << '\n';
+
+    ////////////////////////////////////////////
+    //Arrays in structs and classes don’t decay
+    ////////////////////////////////////////////
     
-
-
-
+    
     return 0;
+}
+
+void printSize(int* array)
+{
+    // array is treated as a pointer here
+    std::cout << sizeof(array) << '\n';// prints the size of a pointer, not the size of the array!
+}
+
+// parameter ptr contains a copy of the array's address
+void changeArray(int* ptr)
+{
+    *ptr = 5;// so changing an array element changes the _actual_ array
 }
