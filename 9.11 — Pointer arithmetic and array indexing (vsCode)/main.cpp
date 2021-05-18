@@ -3,6 +3,7 @@
 #include <algorithm> 
 
 bool isVowel(char);
+int find(int,int,int);
 
 int main()
 {
@@ -64,7 +65,63 @@ int main()
 
     std::cout << surname << " has " << numVowels2 << " vowels.\n";
 
+    //////////////
+    //Quiz Time !
+    //////////////
+    /*
+    Question #1
 
+    Why does the following code work?
+
+    #include <iostream>
+ 
+    int main()
+    {
+        int arr[]{ 1, 2, 3 };
+ 
+        std::cout << 2[arr] << '\n';
+ 
+        return 0;
+    }
+
+    answser:
+
+    The subscript operator ([]) is identical to an addition 
+    and an indirection, the operands can be swapped.
+
+    arr[2]
+    // same as
+    *(arr + 2)
+    // same as
+    *(2 + arr)
+    // same as
+    2[arr]
+    */
+    int array77[]{ 1, 2, 3, 4, 5, 6 };
+    std::cout << array77[2] << '\n';
+    std::cout << *(array77 + 2) << '\n';
+    std::cout << *(2 + array77) << '\n';
+    std::cout << 2[array77] << '\n';
+
+    /*
+    Question #2
+
+    Write a function named find that takes a pointer to the beginning and 
+    a pointer to the end (1 element past the last) of an array, as well as a value. 
+    The function should search for the given value and return a pointer to 
+    the first element with that value, or the end pointer if no element was found. 
+    The following program should run:
+    */
+    int arrayMy[]{ 2, 5, 4, 10, 8, 20, 16, 40 };
+
+    // Search for the first element with value 20.
+    int* found{ &arrayMy[ find(arrayMy[0], arrayMy[std::size(arrayMy)], 20) ] };
+
+    // If an element with value 20 was found, print it.
+    if(found != std::end(arrayMy))
+    {
+        std::cout << *found << '\n';
+    }
 
 
     return 0;
@@ -89,3 +146,10 @@ int main()
                 return false;
         }
     }
+
+    int find(int beginn, int endd, int value)
+    {
+        auto cos{ std::count_if( std::begin(beginn), std::end(endd), value ) };
+        return cos;
+    }
+    
