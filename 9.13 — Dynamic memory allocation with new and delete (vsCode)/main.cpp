@@ -97,9 +97,9 @@ int main()
 
     delete ptr4;// return the memory to the operating system.  ptr is now a dangling pointer.
 
-    std::cout << *ptr4 << '\n';// Indirection through a dangling pointer will cause undefined behavior
+    //std::cout << *ptr4 << '\n';// Indirection through a dangling pointer will cause undefined behavior
 
-    delete ptr4;// trying to deallocate the memory again will also lead to undefined behavior.
+    //delete ptr4;// trying to deallocate the memory again will also lead to undefined behavior.
 
     /*
     Best practice
@@ -123,10 +123,56 @@ int main()
     std::cout << "/////////////////////////////////////////" << '\n';
     //////////////////////////////////////////////////////////////////
     std::cout << std::endl;
-
+    /*
+    In the context of dynamic memory allocation, a null pointer basically says 
+    “no memory has been allocated to this pointer”. This allows us to do things like 
+    conditionally allocate memory:
+    */
+    // If ptr isn't already allocated, allocate it
+    if(!ptr4)
+        ptr4 = new int;
+    //Deleting a null pointer has no effect. Thus, there is no need for the following:
+    if(ptr4)
+        delete ptr4;
+    //Instead, you can just write:
+    //delete ptr4;
+    //If ptr is non-null, the dynamically allocated variable will be deleted. 
+    //If it is null, nothing will happen.
     
+    //////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////" << '\n';
+    std::cout << "Memory leaks" << '\n';
+    std::cout << "/////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////
+    std::cout << std::endl;
 
-    
+    int value2{ 5 };
+    int* ptr5{ new int{} };// allocate memory
+    ptr5 = &value2;// old address lost, memory leak results
+
+    //This can be fixed by deleting the pointer before reassigning it:
+
+    int value3{ 5 };
+    int* ptr6{ new int{} };// allocate memory
+    delete ptr6;// return memory back to operating system
+    ptr6 = &value3;// old address lost, memory leak results
+
+    //////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////" << '\n';
+    std::cout << "Conclusion" << '\n';
+    std::cout << "/////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////
+    std::cout << std::endl;
+    /*
+    Operators new and delete allow us to dynamically allocate single variables for our programs.
+
+    Dynamically allocated memory has dynamic duration and will stay allocated until you deallocate 
+    it or the program terminates.
+
+    Be careful not to perform indirection through dangling or null pointers.
+
+    In the next lesson, we’ll take a look at using new and delete to allocate and delete arrays.
+    */
 
     return 0;
 }
