@@ -3,8 +3,7 @@
 #include <algorithm> 
 
 bool isVowel(char);
-int* find(int*,int*,int);
-
+int find(int*,int*,int);
 
 int main()
 {
@@ -116,7 +115,7 @@ int main()
     int arrayMy[]{ 2, 5, 4, 10, 8, 20, 16, 40 };
 
     // Search for the first element with value 20.
-    int* found{ find(std::begin(arrayMy), std::end(arrayMy), 16) };
+    int* found{ find(arrayMy, arrayMy, 20) };
 
     // If an element with value 20 was found, print it.
     if(found != std::end(arrayMy))
@@ -147,16 +146,10 @@ int main()
                 return false;
         }
     }
-    
 
-int* find(int* begin,int* end, int value)
-{
-    for(int* count{ begin }; count != end; ++count)
+    int find(int* begin, int* end, int value)
     {
-        if(*count == value)
-        {
-            return count;
-        }
+        auto cos{ std::count_if( std::begin(begin), std::end(end), value ) };
+        return cos;
     }
-    return end;
-}
+    
