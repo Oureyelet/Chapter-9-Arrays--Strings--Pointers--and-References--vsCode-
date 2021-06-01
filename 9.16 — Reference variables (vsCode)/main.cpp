@@ -1,9 +1,24 @@
 #include <iostream>
 #include <string>
+#include <iterator> //for std::size
 
-using namespace std;
+void message(std::string);
+void changeN(int&);
+void printElements(int (&arr)[4]);
 
-void message(string);
+struct Something
+{
+    int value1;
+    float value2;
+};
+
+struct Other
+{
+    Something something;
+    int othreValue;
+};
+
+Other other;
 
 int main()
 {
@@ -101,6 +116,73 @@ int main()
     int& z_2_ref{ z_1 };// okay, z_2_ref is now an alias for z_1
     // z_2_ref = z_2;// assigns 6 (the value of z_2) to z_1 -- does NOT change the reference!
 
+    //////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////" << '\n';
+    std::cout << "References as function parameters" << '\n';
+    std::cout << "/////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////
+    std::cout << std::endl; 
+
+    int n{ 5 };
+
+    std::cout << n << '\n';
+
+    changeN(n);// note that this argument does not need to be a reference
+
+    std::cout << n << '\n';
+
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Using references to pass C-style arrays to functions" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << std::endl;
+
+    int arr[]{ 99, 20, 14, 80 };
+
+    printElements(arr);
+
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "References as shortcuts" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << std::endl;
+    
+    // ref_3 can now be used in place of other.something.value1
+    int& ref_3{ other.something.value1 };
+    float& ref_4{ other.something.value2 };
+
+    //The following two statements are thus identical:
+    other.something.value2 = 5;
+    ref_4 = 5;
+
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "References vs pointers" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << std::endl;
+
+    int f_value{ 34 };
+    int* const f_ptr{ &f_value };
+    int& f_ref{ f_value };
+
+    std::cout << f_value << ' ' << *f_ptr << ' ' << f_ref << '\n';
+    /*
+    Pointers should only be used in situations where references are not sufficient 
+    (such as dynamically allocating memory).
+    */
+
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    std::cout << "Summary" << '\n';
+    std::cout << "/////////////////////////////////////////////////////" << '\n';
+    /////////////////////////////////////////////////////////////////////////////
+    std::cout << std::endl;
+
+    
+
 
 
     return 0;
@@ -110,3 +192,21 @@ void message(std::string s)
 {
     std::cout << s << '\n';
 }
+
+// ref is a reference to the argument passed in, not a copy.
+void changeN(int& ref)
+{
+    ref = 7;
+}
+
+// Note: You need to specify the array size in the function declaration.
+void printElements(int (&arr)[4])
+{
+    int length{ static_cast<int>(sizeof(arr) / sizeof(arr[0])) };// we can now do this since the array won't decay
+
+    for(int count{ 0 }; count < length; ++count)
+    {
+        std::cout << arr[count] << '\n';
+    }
+}
+
