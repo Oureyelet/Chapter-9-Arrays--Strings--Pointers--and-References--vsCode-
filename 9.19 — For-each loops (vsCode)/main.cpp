@@ -34,6 +34,7 @@ int main()
         statement;
     */
     // ! ! ! element_declaration should have the same type as the array elements ! ! !
+    // !!! the element declaration should ideally be a reference. !!!
 
     /*
     Let’s take a look at a simple example that uses a for-each loop to print all 
@@ -157,7 +158,36 @@ int main()
     std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
     //////////////////////////////////////////////////////////////////////////////////////////
     //For-each loops do not provide a direct way to get the array index of the current element.
+    //Since C++20, range-based for-loops can be used with an init-statement just 
+    //like the init-statement in if-statements.
 
+    /*
+    The init-statement is placed right before the loop variable:
+
+    for (init-statement; element_declaration : array)
+        statement;
+    */
+    // !!! the element declaration should ideally be a reference. !!!
+    std::string names[]{ "Alex", "Betty", "Caroline", "Dave", "Emily" };// Names of the students
+    constexpr int scores_7[]{ 84, 92, 76, 81, 56 };
+    int maxScores_7{ 0 };
+
+    for(int count{ 0 }; auto& count_array : scores_7)// count is the index of the current element
+    {
+        if(count_array > maxScores_7)
+        {
+            std::cout << names[count] << " beat the previous best score of " << maxScores_7 << " by " <<
+            (count_array - maxScores_7) << " points!\n";
+            maxScores_7 = count_array;
+        }
+    
+        ++count;
+    }
+    
+    std::cout << "The best score was " << maxScores_7 << '\n';
+
+
+    
     
     return 0;
 }
