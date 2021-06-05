@@ -1,31 +1,34 @@
 #include <iostream>
 #include <string>
+#include <string_view>
+#include <algorithm>
+#include <iterator>
 
 std::string askUser()
 {
     std::string choice;
     std::cout << "Enter a name (for see if the name is in system): ";
-    std::cin >> choice;
+    std::getline (std::cin,choice);
 
     return choice;
 }
 
-std::string_view find_a_name(std::string choice, std::string_view array)
+void find_a_name(std::string choice, std::string array)
 {
     for(auto& count : array)
     {
         if(choice == array)
         {
-            std:: cout << choice << " was found." << '\n';
-            return choice;
+            std:: cout << count << " was found." << '\n';
+            
         }
         else
         {
-            std:: cout << choice << " was not found." << '\n';
-            return choice;
+            std:: cout << count << " was not found." << '\n';
+            
         }
+       std::cout << array << ' ';
     }
-    return choice;
 }
 
 int main()
@@ -50,7 +53,29 @@ int main()
 
     std::string_view names[]{ "Alex", "Betty", "Caroline", "Dave", "Emily", "Fred", "Greg", "Holly" };
 
-    find_a_name(askUser(),*names);
+    std::string choice;
+    std::cout << "Enter a name (for see if the name is in system): ";
+    std::getline (std::cin,choice);
+
+    auto it = std::find(std::begin(names), std::end(names), choice);
+
+    for(int count{ 0 }; auto& name : names)
+    {
+        if( it != std::end(names) )
+        {
+            std::cout << "mamy" << ' ';
+            break;
+        }
+        
+        else
+        {
+            std::cout << "nie ma " << ' ';
+            break;
+        }
+        
+        ++count;
+    }
+    std::cout << '\n';
 
 
 
