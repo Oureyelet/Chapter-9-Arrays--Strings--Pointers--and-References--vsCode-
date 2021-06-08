@@ -89,7 +89,7 @@ int main()
     std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
     //////////////////////////////////////////////////////////////////////////////////////////
 
-    /*
+    /**
     We recommend avoiding using pointers to pointers unless no other options are available, because 
     they’re complicated to use and potentially dangerous. It’s easy enough to perform indirection 
     through a null or dangling pointer with normal pointers — it’s doubly easy with a pointer to 
