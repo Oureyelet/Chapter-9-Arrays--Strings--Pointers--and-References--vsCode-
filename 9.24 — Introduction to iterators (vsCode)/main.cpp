@@ -2,6 +2,8 @@
 #include <array> // for std::array
 #include <cstddef> //for size_t
 #include <iterator> //for std::begin / std::end
+#include <vector> // for std::vector
+
 
 int main()
 {
@@ -135,6 +137,68 @@ int main()
     All we need are four things: the begin point, the end point, operator++ to move 
     the iterator to the next element (or the end), and operator* to get the value of the current element.
     */
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Back to range-based for loops" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    All types that have begin and end member functions or can be used with std::begin and std::end 
+    are usable in range-based for-loops.
+    */
+
+    std::array array{1, 2, 3};
+
+    // This does exactly the same as the loop we used before.
+    for(auto& arr : array)
+    {
+        std::cout << arr << ' ';
+    }
+    std::cout << std::endl;
+    /*
+    Behind the scenes, the range-based for-loop calls begin() and end() of the type to iterate over. 
+    std::array has begin and end member functions, so we can use it in a range-based loop.
+    */
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Iterator invalidation (dangling iterators)" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+
+    std::vector ourArray_2 { 1, 2, 3, 4, 5, 6, 7 };
+
+    auto it { ourArray_2.begin() };
+
+    ++it;// move to second element
+    std::cout << *it << '\n';// ok: prints 2
+
+    ourArray_2.erase(it);// erase the element currently being iterated over
+
+    // erase() invalidates iterators to the erased element (and subsequent elements)
+	// so iterator "it" is now invalidated
+
+    ++it;// undefined behavior
+    std::cout << *it << '\n';// undefined behavior
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
