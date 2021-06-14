@@ -182,7 +182,7 @@ int main()
 	// so iterator "it" is now invalidated
 
     ++it;// undefined behavior
-    std::cout << *it << '\n';// undefined behavior
+    std::cout << *it << '\n';// undefined behaviore
 
 
 
