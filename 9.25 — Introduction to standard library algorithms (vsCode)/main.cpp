@@ -20,9 +20,27 @@ bool greater(int a, int b)
     return(a > b);
 }
 
-void(int *begin, int *end)
+void sort(int *begin, int *end)
 {
-    for(auto startElement)
+    for(auto startElement{ begin }; startElement != end; ++startElement)
+    {
+        auto smallestElement{ startElement };
+
+        // std::next returns a pointer to the next element, just like (startElement + 1) would.
+        for(auto currentElement{ std::next(startElement) }; currentElement != end; ++currentElement)
+        {
+            if(*currentElement < *smallestElement)
+            {
+                smallestElement = currentElement;
+            }
+        }
+        std::swap(*startElement, *smallestElement);
+    }
+}
+
+void doubleNumber(int &i)
+{
+    i *= 2; // same as i = i * 2
 }
 
 int main()
@@ -186,9 +204,98 @@ int main()
     std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
     //////////////////////////////////////////////////////////////////////////////////////////
 
+    int array_a[]{ 2, 1, 9, 4, 5 };
+
+    sort(std::begin(array_a), std::end(array_a));
+
+    for(auto& i : array_a)
+    {
+        std::cout << i << ' ';
+    }
+    std::cout << '\n';
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Using std::for_each to do something to all elements of a container" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    std::for_each takes a list as input and applies a custom function to every element. 
+    This is useful when we want to perform the same operation to every element in a list.
+
+    Here’s an example where we use std::for_each to double all the numbers in an array:
+    */
+    std::array array_7{ 1, 2, 3, 4 };
+
+    std::for_each(array_7.begin(), array_7.end(), doubleNumber);
+
+    for(auto& i : array_7)
+    {
+        std::cout << i << ' ';
+    }
+    std::cout << '\n';
 
 
+    /*
+    This often seems like the most unnecessary algorithm to new developers, because equivalent 
+    code with a range-based for-loop is shorter and easier. But there are benefits to std::for_each. 
+    Let’s compare std::for_each to a range-based for-loop.
+    */
+    std::for_each(array_7.begin(), array_7.end(), doubleNumber);
 
+    for(auto& i : array_7)
+    {
+        doubleNumber(i);
+        std::cout << i << ' ';
+    }
+    std::cout << '\n';
+
+
+    /*
+    Additionally, std::for_each can skip elements at the beginning or end of a container, 
+    for example to skip the first element of arr, std::next can be used to advance begin to 
+    the next element.
+    */
+    std::for_each( std::next(array_7.begin()), array_7.end(), doubleNumber );
+    // Now arr is [1, 4, 6, 8]. The first element wasn't doubled.
+
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Order of execution" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    ////////////////////////////////////////////////////////////////////////////////////////// 
+    /*
+    The following algorithms do guarantee sequential execution: 
+    std::for_each, std::copy, std::copy_backward, std::move, and std::move_backward.
+    */ 
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Ranges in C++20" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Having to explicitly pass arr.begin() and arr.end() to every algorithm is a bit annoying. 
+    But fear not -- C++20 adds ranges, which allow us to simply pass arr. 
+    This will make our code even shorter and more readable.
+    */
+
+    std::cout << std::endl;
+    //////////////////////////////////////////////////////////////////////////////////////////
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    std::cout << "Conclusion" << '\n';
+    std::cout << "//////////////////////////////////////////////////////////////////" << '\n';
+    //////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Best practice
+
+    Favor using functions from the algorithms library over writing your own functionality 
+    to do the same thing
+    */
 
 
 
