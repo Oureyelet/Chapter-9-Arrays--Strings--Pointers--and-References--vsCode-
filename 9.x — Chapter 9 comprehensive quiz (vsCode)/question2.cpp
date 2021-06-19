@@ -2,6 +2,7 @@
 #include <string_view>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 struct names_and_grades
 {
@@ -9,9 +10,15 @@ struct names_and_grades
     std::string name{};
 };
 
+bool greater( const names_and_grades& a, const names_and_grades& b)
+{
+    // Order @a before @b if @a is greater than @b.
+    return(a.grade > b.grade);
+}
+
 std::size_t how_many_students()
 {
-    std::cout << "How many students would you like to add? ";
+    std::cout << "How many students would you like to add? :";
     std::size_t how_many{};
     std::cin >> how_many;
 
@@ -46,18 +53,18 @@ int main()
             student_grade.grade = 100;
         }
 
-        
-        innpuu.push_back(make_info(student_name.name,student_grade.grade));
+        innpuu.push_back(make_info(student_name.name, student_grade.grade));
     }
+
+    std::cout << std::endl;
+
+    
+    std::sort( innpuu.begin(), innpuu.end(), greater );
 
     for(auto& i : innpuu)
     {
         std::cout << i.name << " got a grade of " << i.grade << '\n';
     }
-
-
-
-
 
     return 0;
 }

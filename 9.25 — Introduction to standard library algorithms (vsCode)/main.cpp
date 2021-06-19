@@ -14,7 +14,7 @@ bool containsNut(std::string_view str)
    return (str.find("nut") != std::string_view::npos);
 }
 
-bool greater(int a, int b)
+bool greater(int& a, int& b)
 {
     // Order @a before @b if @a is greater than @b.
     return(a > b);
