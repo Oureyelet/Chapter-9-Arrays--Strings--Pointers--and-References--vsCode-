@@ -9,8 +9,9 @@ void myString()
 
     for(p ; *p != '\0'; ++p)
     {
-        std::cout << *p << '\n';
+        std::cout << *p;
     }
+    std::cout << '\n';
 }
 
 int main()
