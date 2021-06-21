@@ -23,3 +23,15 @@ int main()
 
     return 0;
 }
+
+/*
+Question #3
+
+Write your own function to swap the value of two integer variables. Write a main() 
+function to test it.
+
+Use reference parameters
+1
+	
+void swap(int& a, int& b)
+*/
