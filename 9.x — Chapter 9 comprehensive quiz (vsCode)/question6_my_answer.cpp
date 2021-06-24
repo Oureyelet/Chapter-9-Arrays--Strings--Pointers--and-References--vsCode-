@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <string>
 
 enum class Card_Ranks
 {
@@ -35,14 +37,35 @@ struct Card
     Card_Suits suit{};
 };
 
-void printCard(const Card x)
+void printCard(const Card& x)
 {
-    std::cout << x.rank
+    std::cout <<  << '\n';
+}
+
+char* getTextForEnum(const Card::rank& x, const Card::suit& y)
+{
+  switch( x )
+  {
+    case Card_Ranks::Ace:
+    {
+        switch( y )
+        {
+            case Card_Suits::
+        }
+    }
+    return "TC";
+    case Enum::Orange:
+    return "Round and orange";
+ 
+
+  default:
+    return "Not recognized..";
+  }
 }
 
 int main()
 {
-
+    printCard();
 
     return 0;
 }
