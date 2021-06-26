@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <array>
+#include <algorithm> // for std::shuffle
+#include <ctime> // for std::time
+#include <random> // for std::mt19937
 
 enum class Card_Ranks
 {
@@ -37,35 +41,101 @@ struct Card
     Card_Suits suit{};
 };
 
-void printCard(const Card& x)
+void printInitials(const Card& x)
 {
-    std::cout <<  << '\n';
+    switch(x.rank)
+    {
+        case Card_Ranks::Two:      std::cout << "2";    break;
+        case Card_Ranks::Three:    std::cout << "3";    break;
+        case Card_Ranks::Four:     std::cout << "4";    break;
+        case Card_Ranks::Five:     std::cout << "5";    break;
+        case Card_Ranks::Six:      std::cout << "6";    break;
+        case Card_Ranks::Seven:    std::cout << "7";    break;
+        case Card_Ranks::Eight:    std::cout << "8";    break;
+        case Card_Ranks::Nine:     std::cout << "9";    break;
+        case Card_Ranks::Ten:      std::cout << "10";   break;
+        case Card_Ranks::Jack:     std::cout << "J";    break;
+        case Card_Ranks::Queen:    std::cout << "Q";    break;
+        case Card_Ranks::King:     std::cout << "K";    break;
+        case Card_Ranks::Ace:      std::cout << "A";    break;
+        default:
+            std::cout << "?" << '\n';
+            break;
+    }
+
+    switch(x.suit)
+    {
+        case Card_Suits::clubs:    std::cout << "C";     break;
+        case Card_Suits::diamonds: std::cout << "D";     break;
+        case Card_Suits::hearts:   std::cout << "H";     break;
+        case Card_Suits::spades:   std::cout << "S";     break;
+        default:
+            std::cout << "?" << '\n';
+            break;
+    }
 }
 
-char* getTextForEnum(const Card::rank& x, const Card::suit& y)
+// We'll need these many more times, create an aliases.
+using deck_type = std::array<Card, 52>;
+using index_type = deck_type::size_type;
+
+deck_type createDeck()
 {
-  switch( x )
-  {
-    case Card_Ranks::Ace:
+    deck_type deck{};
+
+    // We could initialize each card individually, but that would be a pain.  Let's use a loop.
+    //std::array<Card, 52> card ?????? its the same ?
+    index_type card{ 0 };
+
+    auto suits{ static_cast<int>(Card_Suits::max_suits) };
+    auto ranks{ static_cast<int>(Card_Ranks::max_ranks) };
+
+    for(int suit{ 0 }; suit < suits; ++suit)
     {
-        switch( y )
+        for(int rank{ 0 }; rank < ranks; ++rank)
         {
-            case Card_Suits::
+            deck[card].suit = static_cast<Card_Suits>(suit);
+            deck[card].rank = static_cast<Card_Ranks>(rank);
+            ++card;
         }
     }
-    return "TC";
-    case Enum::Orange:
-    return "Round and orange";
- 
 
-  default:
-    return "Not recognized..";
-  }
+
+    return deck;
+}
+
+void printDeck(const deck_type& deck)
+{
+    for(const auto& i : deck)
+    {
+        printInitials(i);
+        std::cout << ' ';
+    }
+    std::cout << '\n';
+}
+
+void shuffleDeck(deck_type& x)
+{
+    std::mt19937 mt{ static_cast<std::mt19937::result_type>(std::time(nullptr)) };
+    std::shuffle(x.begin(), x.end(), mt);
+
+    for(auto& i : x)
+    {
+        printInitials(i);
+        std::cout << ' ';
+    }
+    std::cout << '\n';
 }
 
 int main()
 {
-    printCard();
+    auto deck{ createDeck() };
+
+    printDeck(deck);
+
+    std::cout << "After shuffle..." << '\n';
+
+    shuffleDeck(deck);
 
     return 0;
 }
