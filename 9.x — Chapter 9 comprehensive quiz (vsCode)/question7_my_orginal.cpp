@@ -158,9 +158,6 @@ int main()
 
     playBlackjack(deck);
 
-
-    std::cout << deck;
-
     return 0;
 }
 
